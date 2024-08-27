@@ -19,7 +19,6 @@ package com.google.samples.apps.nowinandroid.core.designsystem.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -35,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import kotlinx.collections.immutable.PersistentList
@@ -58,7 +58,7 @@ private fun BannerGames(
                 vertical = 16.dp,
             ),
             pageSpacing = 24.dp,
-            pageSize = PageSize.Fixed(FEATURED_BANNER_IMAGE_WIDTH_DP)
+            pageSize = onePagesPerViewport,
         ) { page ->
             val bannerGame = items[page]
             BannerGamesCarouselItem(
@@ -76,7 +76,15 @@ private fun BannerGames(
 }
 
 private val FEATURED_BANNER_IMAGE_WIDTH_DP = 640.dp
-private val FEATURED_BANNER_IMAGE_HEIGHT_DP = 160.dp   // ~16:9
+private val FEATURED_BANNER_IMAGE_HEIGHT_DP = 160.dp
+private val onePagesPerViewport = object : PageSize {
+    override fun Density.calculateMainAxisPageSize(
+        availableSpace: Int,
+        pageSpacing: Int
+    ): Int {
+        return (availableSpace - 1 * pageSpacing) / 1
+    }
+}
 
 @Composable
 private fun BannerGamesCarouselItem(
