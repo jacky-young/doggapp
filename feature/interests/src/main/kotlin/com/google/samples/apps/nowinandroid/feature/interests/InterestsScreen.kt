@@ -17,6 +17,10 @@
 package com.google.samples.apps.nowinandroid.feature.interests
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,15 +28,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
+import androidx.media3.common.MimeTypes
+import com.google.samples.apps.nowinandroid.core.designsystem.component.BannerGames
 import com.google.samples.apps.nowinandroid.core.designsystem.component.NiaBackground
 import com.google.samples.apps.nowinandroid.core.designsystem.component.NiaLoadingWheel
+import com.google.samples.apps.nowinandroid.core.designsystem.component.media.VideoPlayer
+import com.google.samples.apps.nowinandroid.core.designsystem.component.media.VideoPlayerMediaItem
 import com.google.samples.apps.nowinandroid.core.designsystem.theme.NiaTheme
 import com.google.samples.apps.nowinandroid.core.model.data.FollowableTopic
 import com.google.samples.apps.nowinandroid.core.ui.DevicePreviews
 import com.google.samples.apps.nowinandroid.core.ui.FollowableTopicPreviewParameterProvider
 import com.google.samples.apps.nowinandroid.core.ui.TrackScreenViewEvent
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun InterestsRoute(
@@ -67,6 +81,28 @@ internal fun InterestsScreen(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        val sillyData: PersistentList<String> = persistentListOf("$ 0.99", "Download","$ 0.99", "Download","$ 0.99");
+        val pagerState = rememberPagerState { sillyData.size }
+        BannerGames(
+            modifier = modifier,
+            pagerState = pagerState,
+            items = sillyData,
+            navigateToGameDetails = {}
+        )
+
+        val samplePlayList = listOf(
+            VideoPlayerMediaItem.NetworkMediaItem(
+                url = "https://storage.googleapis.com/downloads.webmproject.org/av1/exoplayer/bbb-av1-480p.mp4",
+                mediaMetadata = MediaMetadata.Builder().setTitle("Clear MP4: Dizzy").build(),
+                mimeType = MimeTypes.VIDEO_MP4,
+            ),
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        VideoPlayer(
+            mediaItems = samplePlayList,
+            modifier = modifier,
+        )
+        Spacer(modifier = Modifier.height(12.dp))
         when (uiState) {
             InterestsUiState.Loading ->
                 NiaLoadingWheel(

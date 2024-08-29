@@ -30,6 +30,7 @@ android {
 dependencies {
     lintPublish(projects.lint)
 
+    api(libs.androidx.core.ktx)
     api(libs.androidx.compose.foundation)
     api(libs.androidx.compose.foundation.layout)
     api(libs.androidx.compose.material.iconsExtended)
@@ -38,6 +39,11 @@ dependencies {
     api(libs.androidx.compose.material3.navigationSuite)
     api(libs.androidx.compose.runtime)
     api(libs.androidx.compose.ui.util)
+    api(libs.androidx.media3.common)
+    api(libs.androidx.media3.exoplayer)
+    api(libs.androidx.media3.ui)
+    api(libs.androidx.media3.session)
+    api(libs.androidx.lifecycle.runtimeCompose.android)
     api(libs.kotlinx.collections.immutable)
 
     implementation(libs.coil.kt.compose)

@@ -21,9 +21,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.PagerState
@@ -41,17 +44,18 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
-private fun BannerGames(
+fun BannerGames(
     pagerState: PagerState,
     items: PersistentList<String>,
     navigateToGameDetails: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier.background(Color.Transparent)
+        modifier = modifier
+            .background(Color.Transparent)
     ) {
         val horizontalPadding = 30.dp
-        HorizontalPager(
+        HorizontalPager (
             state = pagerState,
             contentPadding = PaddingValues(
                 horizontal = horizontalPadding,
@@ -66,7 +70,6 @@ private fun BannerGames(
                 gameImageUrl = "",
                 priceOrDownloadLabel = bannerGame,
                 modifier = Modifier
-                    .fillMaxSize()
                     .clickable {
                         navigateToGameDetails(bannerGame)
                     }
